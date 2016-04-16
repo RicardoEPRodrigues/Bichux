@@ -8,15 +8,14 @@ public class Player : MonoBehaviour {
     public GameObject bunny;
     public GameObject elephant;
     public GameObject worm;
+    
     Renderer[] renderers;
     // Use this for initialization
     void Start () {
-        renderers = GetComponentsInChildren<Renderer>();
-        foreach (var r in renderers)
-        {
-            // Do something with the renderer here...
-            r.enabled = false; // like disable it for example. 
-        }
+        bunny.SetActive(false);
+        elephant.SetActive(false);
+        worm.SetActive(false);
+
     }
 
     void pressedKey()
@@ -41,22 +40,24 @@ public class Player : MonoBehaviour {
     {
         if (status == AnimalTypes.Elephant)
         {
-           renderers[0].GetComponent<Renderer>().enabled = true;
-           renderers[1].GetComponent<Renderer>().enabled = false;
-           renderers[2].GetComponent<Renderer>().enabled = false;
+
+            elephant.SetActive(true);
+            bunny.SetActive(false);
+            worm.SetActive(false);
+
         }
         if (status == AnimalTypes.Bunny)
         {
-            renderers[0].GetComponent<Renderer>().enabled = false;
-            renderers[1].GetComponent<Renderer>().enabled = true;
-            renderers[2].GetComponent<Renderer>().enabled = false;
+            elephant.SetActive(false);
+            bunny.SetActive(true);
+            worm.SetActive(false);
 
         }
         if (status == AnimalTypes.Worm)
         {
-            renderers[0].GetComponent<Renderer>().enabled = false;
-            renderers[1].GetComponent<Renderer>().enabled = false;
-            renderers[2].GetComponent<Renderer>().enabled = true;
+            elephant.SetActive(false);
+            bunny.SetActive(false);
+            worm.SetActive(true);
 
         }
     }
