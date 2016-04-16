@@ -8,10 +8,6 @@ public class GameManager : MonoBehaviour
     //unique instance
     private static GameManager _instance;
 
-    //scores
-    private int CurrentScore = 0;
-    private int HighScore = 0;
-
     public static GameManager GetInstance()
     {
         return _instance;
@@ -27,57 +23,48 @@ public class GameManager : MonoBehaviour
         _instance = this;
     }
 
-    /*
-    CURRENT SCORE
-    */
-    int getCurrentScore()
+    private Highscore highscore;
+    [SerializeField]
+    private float maxSpeed = 10;
+
+    public BlockGenerator generator;
+    public Player player;
+
+    void Start()
     {
-        return CurrentScore;
+        highscore = new Highscore();
+        generator.Speed = 3;
+        StartCoroutine(IncreaseSpeed());
+        generator.Play();
     }
 
-    void addPoints(int points)
+    private IEnumerator IncreaseSpeed()
     {
-        CurrentScore += points;
-    }
-
-    void initCurrentScore()
-    {
-        this.CurrentScore = 0;
-    }
-
-    /*
-    HIGH SCORE
-    */
-    int getHighScore()
-    {
-        return HighScore;
-    }
-
-    void setHighScore(int points)
-    {
-        this.HighScore = points;
-    }
-
-    bool isNewHighScore()
-    {
-        return getCurrentScore() > getHighScore();
+        while (true)
+        {
+            yield return new WaitForSeconds(5);
+            if (generator.Speed < maxSpeed)
+            {
+                generator.Speed += 0.1f; 
+            }
+        }
     }
 
     //succes and player continues
-    public void Save(Player player)
+    public void Save()
     {
-        //save new score
-        addPoints(500);
+        //update highscore
+        highscore.AddPoints(500);
+        //TODO update ui
+
     }
 
     //end and player die
-    public void Die(Player player)
+    public void Die()
     {
-        //salvar novos pontos
-        if (isNewHighScore())
-        {
-            setHighScore(getCurrentScore());
-            initCurrentScore();
-        }
+        // resets current score
+        highscore.InitCurrentScore();
+        // pauses game until restart
+        generator.Pause();
     }
 }

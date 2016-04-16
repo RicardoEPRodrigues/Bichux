@@ -51,17 +51,27 @@ public class ProceduralBlock : SelfAwareBehaviour
 
     public void OnCollisionBoxEnter(Collider col)
     {
-        if (acceptedType != AnimalTypes.None && player && player.gameObject == col.gameObject)
+        if (acceptedType != AnimalTypes.None && player)
         {
-            if (player.status == this.acceptedType)
-            {
-                // Save()
-                GameManager.GetInstance().Save(player);
+            bool isPlayerCollision = false;
+            foreach (GameObject animal in player.animals) {
+                if (col.gameObject == animal)
+                {
+                    isPlayerCollision = true;
+                }
             }
-            else
+            if (isPlayerCollision)
             {
-                // Die()
-                GameManager.GetInstance().Die(player);
+                if (player.status == this.acceptedType)
+                {
+                    // The player can keep going.
+                    GameManager.GetInstance().Save();
+                }
+                else
+                {
+                    // The player is going to die.
+                    GameManager.GetInstance().Die();
+                }
             }
         }
     }

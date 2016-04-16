@@ -8,6 +8,8 @@ public class BlockGenerator : MonoBehaviour
     private List<GameObject> blocks = null;
 
     private GameObject previousBlock;
+    [SerializeField]
+    private float speed= 0.1f;
 
     public Transform spawnLocation;
     public Transform movementTarget;
@@ -15,14 +17,54 @@ public class BlockGenerator : MonoBehaviour
 
     public float distanceThreshold = 10.0f;
 
-    public bool generate = true;
+    public bool generate = false;
 
-    public float speed= 0.1f;
+    public float Speed
+    {
+        get
+        {
+            return speed;
+        }
+
+        set
+        {
+            this.speed = value;
+            //foreach (ProceduralBlock block in GetComponentsInChildren<ProceduralBlock>())
+            //{
+            //    if (block)
+            //    {
+            //        block.speed = value;
+            //    }
+            //}
+        }
+    }
+
 
     // Use this for initialization
     void Start()
     {
+    }
 
+    public void Play()
+    {
+        Control(true);
+    }
+
+    public void Pause()
+    {
+        Control(false);
+    }
+
+    private void Control(bool run)
+    {
+        generate = run;
+        foreach (ProceduralBlock block in GetComponentsInChildren<ProceduralBlock>())
+        {
+            if (block)
+            {
+                block.move = run;
+            }
+        }
     }
 
     void SpawnRandomObject()
