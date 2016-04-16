@@ -4,12 +4,10 @@ using System.Collections;
 public class Player : MonoBehaviour {
     
     public AnimalTypes status;
-    private Renderer render;
     public GameObject bunny;
     public GameObject elephant; 
     public GameObject worm;
     
-    Renderer[] renderers;
     // Use this for initialization
     void Start () {
         bunny.SetActive(false);
