@@ -53,8 +53,5 @@ public class Player : MonoBehaviour {
 
         changeStatus();
 
-
-
-
     }
 }
