@@ -2,14 +2,8 @@
 using System.Collections;
 
 public class Player : MonoBehaviour {
-
-    enum animals
-    {
-        Elephant,
-        Bunny,
-        Worm
-    }
-    animals status;
+    
+    public AnimalTypes status;
 
     // Use this for initialization
     void Start () {
@@ -20,31 +14,31 @@ public class Player : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            status = animals.Elephant;
+            status = AnimalTypes.Elephant;
 
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
-            status = animals.Bunny;
+            status = AnimalTypes.Bunny;
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
-            status = animals.Worm;
+            status = AnimalTypes.Worm;
         }
     }
 
     void changeStatus()
     {
-        if (status == animals.Elephant)
+        if (status == AnimalTypes.Elephant)
         {
             transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         }
-        if (status == animals.Bunny)
+        if (status == AnimalTypes.Bunny)
         {
             transform.localScale = new Vector3(1f, 1f, 1f);
 
         }
-        if (status == animals.Worm)
+        if (status == AnimalTypes.Worm)
         {
             transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
