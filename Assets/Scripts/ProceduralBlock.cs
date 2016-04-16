@@ -56,10 +56,12 @@ public class ProceduralBlock : SelfAwareBehaviour
             if (player.status == this.acceptedType)
             {
                 // Save()
+                GameManager.GetInstance().Save(player);
             }
             else
             {
                 // Die()
+                GameManager.GetInstance().Die(player);
             }
         }
     }
