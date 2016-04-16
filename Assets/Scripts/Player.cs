@@ -50,6 +50,18 @@ public class Player : MonoBehaviour {
 
         }
     }
+    void death()
+    {
+
+    }
+    void save()
+    {
+
+    }
+    void respawn()
+    {
+
+    }
     // Update is called once per frame
     private void Update()
     {
