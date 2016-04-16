@@ -1,21 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Security.Policy;
+using System;
 
 public class GameManager : MonoBehaviour
 {
+    //unique instance
+    private static GameManager _instance;
+
+    //scores
     private int CurrentScore = 0;
     private int HighScore = 0;
 
-	// Use this for initialization
-	void Start () {
-	    
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	    
-	}
+    public static GameManager GetInstance()
+    {
+        return _instance;
+    }
+
+    public void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+
+        if (_instance != null)
+            Destroy(_instance.gameObject);
+
+        _instance = this;
+    }
 
     /*
     CURRENT SCORE
@@ -28,6 +38,11 @@ public class GameManager : MonoBehaviour
     void addPoints(int points)
     {
         CurrentScore += points;
+    }
+
+    void initCurrentScore()
+    {
+        this.CurrentScore = 0;
     }
 
     /*
@@ -45,14 +60,24 @@ public class GameManager : MonoBehaviour
 
     bool isNewHighScore()
     {
-        if (getCurrentScore() > getHighScore())
+        return getCurrentScore() > getHighScore();
+    }
+
+    //succes and player continues
+    public void Save(Player player)
+    {
+        //save new score
+        addPoints(500);
+    }
+
+    //end and player die
+    public void Die(Player player)
+    {
+        //salvar novos pontos
+        if (isNewHighScore())
         {
             setHighScore(getCurrentScore());
-            return true;
-        }
-        else
-        {
-            return false;
+            initCurrentScore();
         }
     }
 }

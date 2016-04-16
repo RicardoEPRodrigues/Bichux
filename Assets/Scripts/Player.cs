@@ -6,7 +6,7 @@ public class Player : MonoBehaviour {
     public AnimalTypes status;
     private Renderer render;
     public GameObject bunny;
-    public GameObject elephant;
+    public GameObject elephant; 
     public GameObject worm;
     
     Renderer[] renderers;
