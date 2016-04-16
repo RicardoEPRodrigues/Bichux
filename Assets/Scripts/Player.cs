@@ -4,45 +4,73 @@ using System.Collections;
 public class Player : MonoBehaviour {
     
     public AnimalTypes status;
-
+    private Renderer render;
+    public GameObject bunny;
+    public GameObject elephant;
+    public GameObject worm;
+    Renderer[] renderers;
     // Use this for initialization
     void Start () {
-	
-	}
+        renderers = GetComponentsInChildren<Renderer>();
+        foreach (var r in renderers)
+        {
+            // Do something with the renderer here...
+            r.enabled = false; // like disable it for example. 
+        }
+    }
 
     void pressedKey()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             status = AnimalTypes.Elephant;
 
         }
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             status = AnimalTypes.Bunny;
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             status = AnimalTypes.Worm;
         }
+        
     }
 
     void changeStatus()
     {
         if (status == AnimalTypes.Elephant)
         {
-            transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+           renderers[0].GetComponent<Renderer>().enabled = true;
+           renderers[1].GetComponent<Renderer>().enabled = false;
+           renderers[2].GetComponent<Renderer>().enabled = false;
         }
         if (status == AnimalTypes.Bunny)
         {
-            transform.localScale = new Vector3(1f, 1f, 1f);
+            renderers[0].GetComponent<Renderer>().enabled = false;
+            renderers[1].GetComponent<Renderer>().enabled = true;
+            renderers[2].GetComponent<Renderer>().enabled = false;
 
         }
         if (status == AnimalTypes.Worm)
         {
-            transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            renderers[0].GetComponent<Renderer>().enabled = false;
+            renderers[1].GetComponent<Renderer>().enabled = false;
+            renderers[2].GetComponent<Renderer>().enabled = true;
 
         }
+    }
+    void death()
+    {
+
+    }
+    void save()
+    {
+
+    }
+    void respawn()
+    {
+
     }
     // Update is called once per frame
     private void Update()

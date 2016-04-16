@@ -4,7 +4,9 @@ public class ProceduralBlock : SelfAwareBehaviour
 {
 
     [SerializeField]
-    private AnimalTypes acceptedType;
+    private AnimalTypes acceptedType = AnimalTypes.Bunny;
+    [SerializeField]
+    private ColliderWrapper colliderW = null;
 
     private Vector3 startPosition;
 
@@ -24,6 +26,10 @@ public class ProceduralBlock : SelfAwareBehaviour
         startPosition = self.position;
         startTime = Time.time;
         journeyLength = Vector3.Distance(startPosition, movementTarget.position);
+        if (colliderW)
+        {
+            colliderW.onCollisionEnter = this.OnCollisionBoxEnter;
+        }
     }
 
     // Update is called once per frame
@@ -43,7 +49,7 @@ public class ProceduralBlock : SelfAwareBehaviour
         }
     }
 
-    void OnCollisionBoxEnter(Collision col)
+    public void OnCollisionBoxEnter(Collider col)
     {
         if (acceptedType != AnimalTypes.None && player && player.gameObject == col.gameObject)
         {
