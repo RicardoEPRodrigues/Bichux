@@ -47,7 +47,7 @@ public class ProceduralBlock : SelfAwareBehaviour
     {
         if (acceptedType != AnimalTypes.None && player && player.gameObject == col.gameObject)
         {
-            if (player.currentAnimal == this.acceptedType)
+            if (player.status == this.acceptedType)
             {
                 // Save()
             }

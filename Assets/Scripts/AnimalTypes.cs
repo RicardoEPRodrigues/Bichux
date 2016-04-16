@@ -5,7 +5,7 @@ using System.Text;
 
 public enum AnimalTypes
 {
-    Rabbit,
+    Bunny,
     Worm,
     Elephant,
     None
