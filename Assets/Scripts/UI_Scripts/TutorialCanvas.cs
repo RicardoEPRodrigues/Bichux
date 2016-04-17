@@ -54,6 +54,42 @@ public class TutorialCanvas : MonoBehaviour, ICanvasComunication
         }
     }
 
+
+    IEnumerator Fade() {
+
+        Color color = Buttons[0].GetComponent<Image>().color;
+        while (color.a >= 0.001)
+        {
+            foreach (GameObject button in Buttons)
+            {
+
+                color = button.GetComponent<Image>().color;
+                color.a -= .8f * Time.deltaTime;
+                button.GetComponent<Image>().color = color;
+
+                color = button.GetComponent<Outline>().effectColor;
+                color.a -= .8f * Time.deltaTime;
+                button.GetComponent<Outline>().effectColor = color;
+            }
+
+            foreach (GameObject text in Texts)
+            {
+                color = text.GetComponent<Text>().color;
+                color.a -= .8f * Time.deltaTime;
+                text.GetComponent<Text>().color = color;
+
+                color = text.GetComponent<Outline>().effectColor;
+                color.a -= .8f * Time.deltaTime;
+                text.GetComponent<Outline>().effectColor = color;
+            }
+
+            yield return new WaitForSeconds(.05f); 
+        }
+
+        gameManager.ChangeUICanvas(2);
+    }
+                   
+
     private float DeltaY()
     {
         return Mathf.Sin(Time.fixedTime * 2) * 10.0F * Time.fixedDeltaTime * 2;
@@ -61,7 +97,7 @@ public class TutorialCanvas : MonoBehaviour, ICanvasComunication
 
     public void OpenLevel()
     {
-        gameManager.ChangeUICanvas(2);
+        StartCoroutine("Fade");
     }
 
 
@@ -78,5 +114,12 @@ public class TutorialCanvas : MonoBehaviour, ICanvasComunication
     public void UpdateHighScore(int score)
     {
         //do nothing
+    }
+
+
+    public void showUnicorn()
+    {
+        Buttons[3].SetActive(true);
+        Texts[3].SetActive(true);
     }
 }
