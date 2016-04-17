@@ -27,7 +27,11 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             status = AnimalTypes.Elephant;
+        }
 
+        if (Input.anyKeyDown)
+        {
+            changeStatus();
         }
 
     }
@@ -36,17 +40,20 @@ public class Player : MonoBehaviour
     {
         foreach (GameObject animal in animals)
         {
-            animal.SetActive(false);
+            if (animal)
+            {
+                animal.SetActive(false);
+            }
         }
-        if (status == AnimalTypes.Worm)
+        if (status == AnimalTypes.Worm && animals[0])
         {
             animals[0].SetActive(true);
         }
-        if (status == AnimalTypes.Bunny)
+        else if (status == AnimalTypes.Bunny && animals[1])
         {
             animals[1].SetActive(true);
         }
-        if (status == AnimalTypes.Elephant)
+        else if (status == AnimalTypes.Elephant && animals[2])
         {
             animals[2].SetActive(true);
         }
@@ -57,8 +64,6 @@ public class Player : MonoBehaviour
         // Get the axis and jump input.
 
         pressedKey();
-
-        changeStatus();
 
     }
 
