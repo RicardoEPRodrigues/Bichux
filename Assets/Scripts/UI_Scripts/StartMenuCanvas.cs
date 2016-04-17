@@ -79,4 +79,7 @@ public class StartMenuCanvas : MonoBehaviour, ICanvasComunication
         UI_HighScore.text = score.ToString();
     }
 
+
+    public void showUnicorn() { }
+
 }
