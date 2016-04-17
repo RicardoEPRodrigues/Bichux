@@ -1,11 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System;
 
-public class GameHUDCanvas : MonoBehaviour {
+public class GameHUDCanvas : MonoBehaviour, ICanvasComunication
+{
     
-    public GameObject SelfContainer;
-    public GameObject EndGameMenuContainer;
+    public GameObject selfContainer;
+    public GameObject endGameMenuContainer;
+
+    private GameObject prefabCopy;
+
+    private GameManager gameManager { get; set; }
 
     public Text UI_MyScore;
 
@@ -21,13 +27,22 @@ public class GameHUDCanvas : MonoBehaviour {
 
     void OpenEndGameWindow()
     {
-        Instantiate(EndGameMenuContainer);
-        Destroy(SelfContainer);
+        gameManager.ChangeUICanvas(3);
     }
 
-    void ChangeMyScoreDisplay()
+    public void SetGameManager(GameManager gameManager)
     {
-        UI_MyScore.text = "1";
+        this.gameManager = gameManager;
+    }
+
+    public void UpdateScore(int score)
+    {
+        UI_MyScore.text = score.ToString();
+    }
+
+    public void UpdateHighScore(int score)
+    {
+        //nothing
     }
 
 }

@@ -2,12 +2,16 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class EndGameMenuCanvas : MonoBehaviour {
+public class EndGameMenuCanvas : MonoBehaviour, ICanvasComunication
+{
 
 
     public GameObject SelfContainer;
     public GameObject GameHUDCanvas;
     public GameObject StartMenuCanvas;
+
+
+    private GameManager gameManager { get; set; }
 
 
     public Text UI_MyScore;
@@ -17,8 +21,6 @@ public class EndGameMenuCanvas : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        ChangeMyScoreDisplay();
-        ChangeHighScoreDisplay();
     }
 	// Update is called once per frame
 	void Update () {
@@ -30,25 +32,29 @@ public class EndGameMenuCanvas : MonoBehaviour {
 
     public void RestartGame()
     {
-
-        Instantiate(GameHUDCanvas);
-        Destroy(SelfContainer);
+        gameManager.ChangeUICanvas(2);
     }
 
     public void OpenStartMenu()
     {
-
-        Instantiate(StartMenuCanvas);
-        Destroy(SelfContainer);
+        gameManager.ChangeUICanvas(0);
     }
 
-    void ChangeMyScoreDisplay()
+
+
+    public void SetGameManager(GameManager gameManager)
     {
-        UI_MyScore.text = "1";
+        this.gameManager = gameManager;
     }
 
-    void ChangeHighScoreDisplay()
+    public void UpdateScore(int score)
     {
-        UI_HighScore.text = "2";
+        UI_MyScore.text = score.ToString();
     }
+
+    public void UpdateHighScore(int score)
+    {
+        UI_HighScore.text = score.ToString();
+    }
+
 }
