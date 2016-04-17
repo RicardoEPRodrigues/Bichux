@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     //unique instance
     private static GameManager _instance;
 
+
     public static GameManager GetInstance()
     {
         return _instance;
@@ -24,17 +25,20 @@ public class GameManager : MonoBehaviour
     }
 
     public GameObject[] UI_CanvasPrefab;
-    private int CurrentCanvas;
+    private int CurrentCanvhhas;
 
 
-    private ICanvasComunication ICanvas;
 
-    private Highscore highscore;
+    public ICanvasComunication ICanvas;
+
+    public Highscore highscore;
     [SerializeField]
     private float maxSpeed = 10;
 
     public BlockGenerator generator;
     public Player player;
+
+    public int CurrentCanvas { get; private set; }
 
     void Start()
     {
@@ -68,9 +72,13 @@ public class GameManager : MonoBehaviour
 
         //update highscore
         highscore.AddPoints(500);
+        /*
+        if (highscore.GetCurrentScore() == 1000 && CurrentCanvas == 2 && player.hasUnicorn)
+            ICanvas.showUnicorn();
+            */
 
         if (ICanvas != null)
-            ICanvas.UpdateScore(highscore.GetHighScore());
+            ICanvas.UpdateScore(highscore.GetCurrentScore());
         //TODO update ui
 
     }
@@ -92,6 +100,17 @@ public class GameManager : MonoBehaviour
         ICanvas = (ICanvasComunication) UI_CanvasPrefab[id].GetComponent(typeof(ICanvasComunication));
         ICanvas.SetGameManager(this);
 
+
+        if(CurrentCanvas == 1 && player.hasUnicorn()){
+            ICanvas.showUnicorn();
+        }
+
+    }
+
+    public void PlayerNotifyUI()
+    {
+        if(CurrentCanvas == 2)
+            ICanvas.showUnicorn();
     }
 
     public void test()

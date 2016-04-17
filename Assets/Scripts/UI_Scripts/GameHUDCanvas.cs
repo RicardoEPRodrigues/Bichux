@@ -26,6 +26,8 @@ public class GameHUDCanvas : MonoBehaviour, ICanvasComunication
     {
         hue = 0;
         isArrowPressed = true;
+        UnicornPowerUp.SetActive(false);
+        UnicornTextPowerUp.SetActive(false);
     }
 
     // Update is called once per frame

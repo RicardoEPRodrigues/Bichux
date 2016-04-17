@@ -8,6 +8,7 @@ public enum AnimalTypes
     Worm,
     Bunny,
     Elephant,
+    Unicorn,
     None
 }
 
