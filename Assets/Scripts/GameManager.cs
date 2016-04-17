@@ -48,6 +48,9 @@ public class GameManager : MonoBehaviour
         generator.Play();
 
         ChangeUICanvas(0);
+
+        if (ICanvas != null)
+            ICanvas.SetGameManager(this);
     }
 
     private IEnumerator IncreaseSpeed()
@@ -65,11 +68,6 @@ public class GameManager : MonoBehaviour
     //succes and player continues
     public void Save()
     {
-
-        if (ICanvas != null)
-            ICanvas.SetGameManager(this);
-
-
         //update highscore
         highscore.AddPoints(500);
         /*
@@ -79,7 +77,6 @@ public class GameManager : MonoBehaviour
 
         if (ICanvas != null)
             ICanvas.UpdateScore(highscore.GetCurrentScore());
-        //TODO update ui
 
     }
 
