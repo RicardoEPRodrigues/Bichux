@@ -7,36 +7,52 @@ public class Player : MonoBehaviour
     public AnimalTypes status;
 
     public List<GameObject> animals = null;
+    private bool locked;
+
+    public bool Locked
+    {
+        get
+        {
+            return locked;
+        }
+
+        set
+        {
+            this.locked = value;
+        }
+    }
 
     // Use this for initialization
     void Start()
     {
-        this.changeStatus();
+        this.ChangeStatus();
     }
 
-    void pressedKey()
+    void PressedKey()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (!locked)
         {
-            status = AnimalTypes.Worm;
-        }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            status = AnimalTypes.Bunny;
-        }
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            status = AnimalTypes.Elephant;
-        }
-
-        if (Input.anyKeyDown)
-        {
-            changeStatus();
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                status = AnimalTypes.Worm;
+            }
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                status = AnimalTypes.Bunny;
+            }
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                status = AnimalTypes.Elephant;
+            }
+            if (Input.anyKeyDown)
+            {
+                ChangeStatus();
+            } 
         }
 
     }
 
-    void changeStatus()
+    void ChangeStatus()
     {
         foreach (GameObject animal in animals)
         {
@@ -63,7 +79,7 @@ public class Player : MonoBehaviour
     {
         // Get the axis and jump input.
 
-        pressedKey();
+        PressedKey();
 
     }
 
