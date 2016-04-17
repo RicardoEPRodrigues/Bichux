@@ -23,6 +23,12 @@ public class GameManager : MonoBehaviour
         _instance = this;
     }
 
+    public GameObject[] UI_CanvasPrefab;
+    private int CurrentCanvas;
+
+
+    private ICanvasComunication ICanvas;
+
     private Highscore highscore;
     [SerializeField]
     private float maxSpeed = 10;
@@ -36,6 +42,8 @@ public class GameManager : MonoBehaviour
         generator.Speed = 3;
         StartCoroutine(IncreaseSpeed());
         generator.Play();
+
+        ChangeUICanvas(0);
     }
 
     private IEnumerator IncreaseSpeed()
@@ -53,8 +61,16 @@ public class GameManager : MonoBehaviour
     //succes and player continues
     public void Save()
     {
+
+        if (ICanvas != null)
+            ICanvas.SetGameManager(this);
+
+
         //update highscore
         highscore.AddPoints(500);
+
+        if (ICanvas != null)
+            ICanvas.UpdateScore(highscore.GetHighScore());
         //TODO update ui
 
     }
@@ -66,5 +82,20 @@ public class GameManager : MonoBehaviour
         highscore.InitCurrentScore();
         // pauses game until restart
         generator.Pause();
+    }
+
+    public void ChangeUICanvas(int id)
+    {
+        UI_CanvasPrefab[CurrentCanvas].SetActive(false);
+        CurrentCanvas = id;
+        UI_CanvasPrefab[id].SetActive(true);
+        ICanvas = (ICanvasComunication) UI_CanvasPrefab[id].GetComponent(typeof(ICanvasComunication));
+        ICanvas.SetGameManager(this);
+
+    }
+
+    public void test()
+    {
+        Debug.Log("ho");
     }
 }

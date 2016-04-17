@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
-public class StartMenuCanvas : MonoBehaviour
+public class StartMenuCanvas : MonoBehaviour, ICanvasComunication
 {
 
     public GameObject SelfContainer;
@@ -9,13 +10,18 @@ public class StartMenuCanvas : MonoBehaviour
 
     public GameObject[] Buttons;
 
+    public Text UI_HighScore;
+
+    public GameManager gameManager { get; set; }
+
+
     private Vector3 pos;
     private bool hoveringButton;
     private int id;
 
+
     // Use this for initialization
     void Start () {
-        UpdateHighScore();
 	}
     void FixedUpdate()
     {
@@ -50,13 +56,27 @@ public class StartMenuCanvas : MonoBehaviour
     }
 
     public void OpenTutorial() {
-
-        Instantiate(TutorialContainer);
-        Destroy(SelfContainer);
+        this.gameManager.ChangeUICanvas(1);
     }
+
     public void OpenOptions() { }
     public void OpenCredits() { }
 
-    void UpdateHighScore() { }
+
+
+    public void SetGameManager(GameManager gameManager)
+    {
+        this.gameManager = gameManager;
+    }
+
+    public void UpdateScore(int score)
+    {
+       //do nothing
+    }
+
+    public void UpdateHighScore(int score)
+    {
+        UI_HighScore.text = score.ToString();
+    }
 
 }

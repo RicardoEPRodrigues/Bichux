@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class TutorialCanvas : MonoBehaviour
+public class TutorialCanvas : MonoBehaviour, ICanvasComunication
 {
 
     public GameObject SelfContainer;
@@ -10,6 +10,9 @@ public class TutorialCanvas : MonoBehaviour
 
     public GameObject[] Buttons;
     public GameObject[] Texts;
+
+    private GameManager gameManager { get; set; }
+
 
     private Vector3 pos;
     // Use this for initialization
@@ -58,7 +61,22 @@ public class TutorialCanvas : MonoBehaviour
 
     public void OpenLevel()
     {
-        Instantiate(GameHUDContainer);
-        Destroy(SelfContainer);
+        gameManager.ChangeUICanvas(2);
+    }
+
+
+    public void SetGameManager(GameManager gameManager)
+    {
+        this.gameManager = gameManager;
+    }
+
+    public void UpdateScore(int score)
+    {
+        //do nothing
+    }
+
+    public void UpdateHighScore(int score)
+    {
+        //do nothing
     }
 }
