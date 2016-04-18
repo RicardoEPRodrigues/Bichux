@@ -30,9 +30,9 @@ public class EndGameMenuCanvas : MonoBehaviour, ICanvasComunication
     void Start()
     {
         NewBest = false;
-       if( gameManager.player.hasUnicorn())
+       if(gameManager.highscore.GetCurrentScore() >= 500 && !gameManager.player.hasUnicorn())
         {
-            //show in UI
+            UnicornPowerUp.SetActive(true);
         }
     }
 	// Update is called once per frame
