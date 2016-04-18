@@ -98,11 +98,16 @@ public class Player : MonoBehaviour
 
     }
 
-    public void death()
+	public void death(AnimationType type)
     {
 
-    }
-    public void save()
+		AnimalAnimation animalAnimation = animals [(int)status].GetComponent<AnimalAnimation> ();
+		if (animalAnimation)
+		{
+			animalAnimation.PickAnimation (type);	
+		}
+	}
+	public void save(AnimationType type)
     {
 
     }
