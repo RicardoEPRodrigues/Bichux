@@ -16,6 +16,7 @@ public class EndGameMenuCanvas : MonoBehaviour, ICanvasComunication
 
     private GameManager gameManager { get; set; }
     private bool NewBest { get; set; }
+    private bool NewUnlock { get; set; }
 
 
     public Text UI_MyScore;
@@ -30,9 +31,12 @@ public class EndGameMenuCanvas : MonoBehaviour, ICanvasComunication
     void Start()
     {
         NewBest = false;
-       if(gameManager.highscore.GetCurrentScore() >= 500 && !gameManager.player.hasUnicorn())
+        NewUnlock = false;
+        CheckForAchievments();
+        if (NewUnlock)
         {
             UnicornPowerUp.SetActive(true);
+          
         }
     }
 	// Update is called once per frame
@@ -45,7 +49,7 @@ public class EndGameMenuCanvas : MonoBehaviour, ICanvasComunication
             UI_Star.color = c;
         }
 
-        if (gameManager.highscore.GetCurrentScore() >= 500 && !gameManager.player.hasUnicorn()) {
+        if (NewUnlock) {
             hue += 50 * Time.deltaTime;
             color = ColorFromHSV(hue, 1.0f, 1.0f);
             color.a = 1.0f;
@@ -66,6 +70,15 @@ public class EndGameMenuCanvas : MonoBehaviour, ICanvasComunication
         gameManager.ChangeUICanvas(0);
     }
 
+    private void CheckForAchievments()
+    {
+        gameManager.player.achievments[0].CheckAchievment();
+        if (gameManager.player.achievments[0].HasAchievment()) //player has unicorn
+        {
+           // como só há um achievment. Usar um ciclo for break para o caso contrário
+            NewUnlock = true;
+        }
+    }
 
 
     public void SetGameManager(GameManager gameManager)
