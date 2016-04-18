@@ -56,7 +56,6 @@ public class AnimalAnimation : MonoBehaviour
     
 	public void OnDie(){
 		GameManager.GetInstance().OnDie();
-		deathParticles.Emit (particleInt);
 
 
 		switch (GameManager.GetInstance().player.status) {
@@ -76,5 +75,7 @@ public class AnimalAnimation : MonoBehaviour
 		default:
 			break;
 		}
+			
+		deathParticles.Emit(Vector3.zero, Vector3.up, 0.2f, 2f, Color.yellow);
 	}
 }
