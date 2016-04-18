@@ -47,5 +47,12 @@ public class AnimalAnimation : MonoBehaviour {
 
 	public void OnDie(){
 		GameManager.GetInstance().OnDie();
+		switch (GameManager.GetInstance().player.status) {
+		case AnimalTypes.Bunny:
+
+			break;
+		default:
+			break;
+		}
 	}
 }
