@@ -4,31 +4,32 @@ using System.Collections.Generic;
 
 public class CubesGenerator : MonoBehaviour
 {
-    //standard configs
+    //standard prefab
     [SerializeField]
     private GameObject defaultCube;
 
-    [SerializeField]
-    private float speed;
-
-    public bool cubesEnable;
-
+    //cubes number
     public int numberCubes;
+
+    //refernece to manager
+    private GameManager manager;
 
     //cubes container
     private List<Cube> cubes = null; 
 
 	void Start () {
+        //init moving cubes
 	    cubes = new List<Cube>();
 	    createCubes();
+
+        //reference to manager
+	    manager = GameManager.GetInstance();
 	}
     
 
 	void Update () {
-	    if (cubesEnable) {
-            foreach (Cube cube in cubes) {
-                cube.lifeCycle(speed);
-            }
+        foreach (Cube cube in cubes) {
+            cube.lifeCycle(manager.generator.Speed);
         }
     }
 
