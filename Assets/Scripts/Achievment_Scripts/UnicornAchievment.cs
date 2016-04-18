@@ -8,7 +8,7 @@ public class UnicornAchievment : Achievment {
     }
     override public void CheckAchievment( ) 
     {
-        if (GameManager.GetInstance().highscore.GetCurrentScore() > 400)
+        if (GameManager.GetInstance().highscore.GetCurrentScore() > 20000)
         {
             isAchieved = true;
         }

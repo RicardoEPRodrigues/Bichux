@@ -116,6 +116,8 @@ public class GameManager : MonoBehaviour
         generator.generate = true;
         generator.generateRandom = true;
         player.respawn();
+        _baseScore = 500;
+        _xx = 1;
     }
 
 
