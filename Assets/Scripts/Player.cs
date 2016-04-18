@@ -5,11 +5,13 @@ public class Player : MonoBehaviour
 {
 
     public AnimalTypes status;
+    public MusicEffects musicEffects;
 
     public List<GameObject> animals = null;
     public List<Achievment> achievments = new List<Achievment>() { new UnicornAchievment() };
 
     private bool locked;
+    private AnimalTypes oldStatus;
 
     public bool Locked
     {
@@ -34,17 +36,24 @@ public class Player : MonoBehaviour
     {
         if (!locked)
         {
+            oldStatus = status;
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 status = AnimalTypes.Worm;
+                musicEffects.changeClip();
+                
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 status = AnimalTypes.Bunny;
+                musicEffects.changeClip();
+
             }
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 status = AnimalTypes.Elephant;
+                musicEffects.changeClip();
+
             }
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
@@ -52,6 +61,8 @@ public class Player : MonoBehaviour
                 {
                     GameManager.GetInstance().PlayerNotifyUI();
                     status = AnimalTypes.Unicorn;
+                    musicEffects.changeClip();
+
                 }
                    
             }
