@@ -158,10 +158,13 @@ public class GameManager : MonoBehaviour
     private IEnumerator RemoveUnicorn(float time)
     {
         hasWaitingDelay = true;
-        
+
         yield return new WaitForSeconds(time);
         hasWaitingDelay = false;
 
-        // Code to execute after the delay
+        if (player.status == AnimalTypes.Unicorn)
+        {
+            player.ChangeStatus(AnimalTypes.Bunny);
+        }
     }
 }

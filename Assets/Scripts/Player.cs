@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
 
     }
 
-    void ChangeStatus(AnimalTypes type, bool force = false)
+    public void ChangeStatus(AnimalTypes type, bool force = false)
     {
         if (!force && status == type)
         {
