@@ -11,7 +11,7 @@ public class cubeMotion : MonoBehaviour {
    
    void Start()
     {
-        Debug.Log("h");
+        //Debug.Log("h");
         rx = ry = rz = sum = 0;
         dir = Random.Range(-0.1F, 0.1F);
     }
