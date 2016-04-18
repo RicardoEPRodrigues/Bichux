@@ -85,9 +85,6 @@ public class GameManager : MonoBehaviour
             //update formula
             _xx += 1.0f;
             _baseScore =+ (_baseScore*_xx);
-
-            Debug.Log("new base --> " + _baseScore);
-
         }
 
         if (ICanvas != null)
