@@ -18,6 +18,8 @@ public class TutorialCanvas : MonoBehaviour, ICanvasComunication
     // Use this for initialization
     void OnEnable()
     {
+
+        gameManager = GameManager.GetInstance();
         if (gameManager.player.hasUnicorn())
             showUnicorn();
 
