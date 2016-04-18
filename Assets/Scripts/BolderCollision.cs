@@ -20,7 +20,7 @@ public class BolderCollision : MonoBehaviour {
     public void OnCollisionBoxEnter(Collider col)
     {
         Player player = GameManager.GetInstance().player;
-        if (player && player.status == AnimalTypes.Elephant)
+        if (player && (player.status == AnimalTypes.Elephant || player.status == AnimalTypes.Unicorn))
         {
             bool isPlayerCollision = false;
             foreach (GameObject animal in player.animals)
