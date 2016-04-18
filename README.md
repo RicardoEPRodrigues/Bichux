@@ -32,5 +32,5 @@ Visit the [official Unity3D website](http://unity3d.com) to download it.
 * Ricardo Rodrigues
 
 #### Thanks
-* (Daryl Mortom)[https://soundcloud.com/dazzman1] for the Sound
-* (Freepix on FlatIcon)[http://www.flaticon.com/authors/freepik] for the icons
+* [Daryl Mortom](https://soundcloud.com/dazzman1) for the Sound
+* [Freepix on FlatIcon](http://www.flaticon.com/authors/freepik) for the icons
