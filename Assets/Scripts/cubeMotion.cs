@@ -7,7 +7,6 @@ public class cubeMotion : MonoBehaviour {
 
     float rx, ry, rz, sum, dir;
     Vector3 pos;
-    
    
    void Start()
     {
