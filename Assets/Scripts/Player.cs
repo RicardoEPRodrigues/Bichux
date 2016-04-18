@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
                 if (GameManager.GetInstance().IsUnicornAvailable)
                 {
                     GameManager.GetInstance().PlayerNotifyUI();
-                    status = AnimalTypes.Elephant;
+                    status = AnimalTypes.Unicorn;
                 }
                    
             }
