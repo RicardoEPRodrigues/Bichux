@@ -59,6 +59,8 @@ public class GameManager : MonoBehaviour
 
         if (ICanvas != null)
             ICanvas.SetGameManager(this);
+
+        generator.generateRandom = false;
     }
 
     private IEnumerator IncreaseSpeed()
@@ -96,9 +98,16 @@ public class GameManager : MonoBehaviour
     {
         // pauses game until restart
         generator.Pause();
-
+        generator.generateRandom = false;
         ChangeUICanvas(3);
     }
+
+    public void Play()
+    {
+
+        generator.generateRandom = true;
+    }
+
 
     public void ChangeUICanvas(int id)
     {
@@ -116,6 +125,9 @@ public class GameManager : MonoBehaviour
         if (CurrentCanvas == 1 && player.hasUnicorn()){
             IsUnicornAvailable = true;
             ICanvas.showUnicorn();
+        }else if(CurrentCanvas == 2)
+        {
+            Play();
         }
         IsUnicornAvailable = false;
     }
