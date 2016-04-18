@@ -28,6 +28,7 @@ public class EndGameMenuCanvas : MonoBehaviour, ICanvasComunication
     private Color color;
 
     // Use this for initialization
+
     void OnEnable()
     {
         
@@ -37,8 +38,9 @@ public class EndGameMenuCanvas : MonoBehaviour, ICanvasComunication
         if (NewUnlock)
         {
             UnicornPowerUp.SetActive(true);
-          
+
         }
+
     }
 
 	// Update is called once per frame
@@ -92,9 +94,9 @@ public class EndGameMenuCanvas : MonoBehaviour, ICanvasComunication
     {
         gameManager = GameManager.GetInstance();
         gameManager.player.achievments[0].CheckAchievment();
-        if (gameManager.player.achievments[0].HasAchievment()) //player has unicorn
+        if (gameManager.player.achievments[0].HasAchievment() && !gameManager.player.achievments[0].HasShowedAchievment())
         {
-            // como só há um achievment. Usar um ciclo for break para o caso contrário
+            gameManager.player.achievments[0].ShowAchievment();            // como só há um achievment. Usar um ciclo for break para o caso contrário
             NewUnlock = true;
         }
     }
