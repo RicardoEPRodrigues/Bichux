@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] UI_CanvasPrefab;
     private int CurrentCanvhhas;
+    public bool IsUnicornAvailable { get; set; }
+    private bool hasWaitingDelay;
 
 
 
@@ -46,6 +48,8 @@ public class GameManager : MonoBehaviour
         generator.Speed = 3;
         StartCoroutine(IncreaseSpeed());
         generator.Play();
+        IsUnicornAvailable = false;
+        hasWaitingDelay = false;
 
         ChangeUICanvas(0);
 
@@ -70,14 +74,17 @@ public class GameManager : MonoBehaviour
     {
         //update highscore
         highscore.AddPoints(500);
-        /*
-        if (highscore.GetCurrentScore() == 1000 && CurrentCanvas == 2 && player.hasUnicorn)
+        
+        if(highscore.GetCurrentScore() == 500 && CurrentCanvas == 2 && !IsUnicornAvailable && !hasWaitingDelay)
+        {
+            IsUnicornAvailable = true;
             ICanvas.showUnicorn();
-            */
+        }
 
         if (ICanvas != null)
+        {
             ICanvas.UpdateScore(highscore.GetCurrentScore());
-
+        }
     }
 
     //end and player die
@@ -87,6 +94,8 @@ public class GameManager : MonoBehaviour
         highscore.InitCurrentScore();
         // pauses game until restart
         generator.Pause();
+
+        ChangeUICanvas(3);
     }
 
     public void ChangeUICanvas(int id)
@@ -97,17 +106,37 @@ public class GameManager : MonoBehaviour
         ICanvas = (ICanvasComunication) UI_CanvasPrefab[id].GetComponent(typeof(ICanvasComunication));
         ICanvas.SetGameManager(this);
 
+        ICanvas.UpdateScore(highscore.GetCurrentScore());
+        ICanvas.UpdateHighScore(highscore.GetHighScore());
 
-        if(CurrentCanvas == 1 && player.hasUnicorn()){
+
+        if (CurrentCanvas == 1 && player.hasUnicorn()){
+            IsUnicornAvailable = true;
             ICanvas.showUnicorn();
         }
-
+        IsUnicornAvailable = false;
     }
 
     public void PlayerNotifyUI()
     {
-        if(CurrentCanvas == 2)
+        
+        if (CurrentCanvas == 2)
+        {
+            
+            IsUnicornAvailable = false;
             ICanvas.showUnicorn();
+            StartCoroutine(RemoveUnicorn(10));
+        }
+    }
+
+    private IEnumerator RemoveUnicorn(float time)
+    {
+        hasWaitingDelay = true;
+        
+        yield return new WaitForSeconds(time);
+        hasWaitingDelay = false;
+
+        // Code to execute after the delay
     }
 
     public void test()

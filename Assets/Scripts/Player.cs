@@ -34,17 +34,26 @@ public class Player : MonoBehaviour
     {
         if (!locked)
         {
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 status = AnimalTypes.Worm;
             }
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 status = AnimalTypes.Bunny;
             }
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 status = AnimalTypes.Elephant;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                if (GameManager.GetInstance().IsUnicornAvailable)
+                {
+                    GameManager.GetInstance().PlayerNotifyUI();
+                    status = AnimalTypes.Elephant;
+                }
+                   
             }
             if (Input.anyKeyDown)
             {
@@ -75,6 +84,10 @@ public class Player : MonoBehaviour
         {
             animals[2].SetActive(true);
         }
+        else if (status == AnimalTypes.Unicorn && animals[3])
+        {
+            animals[3].SetActive(true);
+        }
     }
     // Update is called once per frame
     private void Update()
@@ -102,7 +115,7 @@ public class Player : MonoBehaviour
     {
         foreach (Achievment achievment in achievments)
         {
-            if (achievment is UnicornAchievment)
+            if (achievment is UnicornAchievment && achievment.HasAchievment())
             {
                 return true;
             }
