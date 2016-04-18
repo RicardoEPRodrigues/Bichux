@@ -101,8 +101,7 @@ public class Player : MonoBehaviour
 
 	public void death(AnimationType type)
     {
-
-		AnimalAnimation animalAnimation = animals [(int)status].GetComponent<AnimalAnimation> ();
+        AnimalAnimation animalAnimation = animals [(int)status].GetComponent<AnimalAnimation> ();
 		if (animalAnimation)
 		{
 			animalAnimation.PickAnimation (type);	
@@ -110,10 +109,13 @@ public class Player : MonoBehaviour
 	}
 	public void save()
     {
-        AnimalAnimation animalAnimation = animals[(int)status].GetComponent<AnimalAnimation>();
-        if (animalAnimation)
+        if (this.status == AnimalTypes.Bunny)
         {
-            animalAnimation.PickAnimation(AnimationType.Special);
+            AnimalAnimation animalAnimation = animals[(int)status].GetComponent<AnimalAnimation>();
+            if (animalAnimation)
+            {
+                animalAnimation.PickAnimation(AnimationType.Special);
+            } 
         }
     }
     public void respawn()
