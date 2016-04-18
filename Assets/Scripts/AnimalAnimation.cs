@@ -21,7 +21,7 @@ public class AnimalAnimation : MonoBehaviour {
 			break;
 
 
-		case AnimationType.Special: //transposeobstacle
+		case AnimationType.Special: //special
 			animator.SetTrigger("Special");
 			break;
 
@@ -39,5 +39,13 @@ public class AnimalAnimation : MonoBehaviour {
 
 		}
 
+	}
+
+	public void Landed(){
+		animator.SetTrigger("Run");
+	}
+
+	public void OnDie(){
+		GameManager.GetInstance().OnDie();
 	}
 }
