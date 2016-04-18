@@ -3,11 +3,13 @@ Shapeshifting endless runner small game
 
 ## Installation
 
-Download the ZIP file in the base directory and open in.
+Download the ZIP file for your operative system in the base directory and open in.
 
 Inside there is are the binaries of the game.
 
-[TODO] Conclude the explanation.
+Just click to run the game and play!
+
+NOTE: It seems the Mac version is somehow broken, sorry for the inconvenience.
 
 ## Compiling
 
