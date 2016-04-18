@@ -3,17 +3,17 @@ using System.Collections;
 
 public class AnimalAnimation : MonoBehaviour {
 
-	Animator animator;
+    public Player player;
+	public Animator animator;
 
 	void Start()
 	{
-		animator = GetComponent <Animator>();
 	}
 
 	public void PickAnimation(AnimationType colAction)
 	{
-
-		switch (colAction)
+        player.Locked = true;
+        switch (colAction)
 		{
 
 		case AnimationType.Run: //normalmovement
@@ -43,6 +43,7 @@ public class AnimalAnimation : MonoBehaviour {
 
 	public void Landed(){
 		animator.SetTrigger("Run");
+        player.Locked = false;
 	}
 
 	public void OnDie(){

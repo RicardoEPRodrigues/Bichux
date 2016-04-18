@@ -29,8 +29,8 @@ public class Cube : MonoBehaviour {
 
     //1- move the cube
     private void move(float speed) {
-            this.life -= 0.1f;
-            this.prefab.transform.position -= new Vector3(speed / 10, 0, 0);
+            this.life -= 10f * Time.deltaTime;
+        this.prefab.transform.position -= new Vector3(speed *2* Time.deltaTime, 0, 0);
     }
 
     private bool isDead() {

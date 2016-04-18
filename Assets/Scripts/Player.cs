@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        this.ChangeStatus();
+        this.ChangeStatus(status, true);
     }
 
     void PressedKey()
@@ -36,35 +36,36 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                status = AnimalTypes.Worm;
+                ChangeStatus(AnimalTypes.Worm);
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                status = AnimalTypes.Bunny;
+                ChangeStatus(AnimalTypes.Bunny);
             }
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                status = AnimalTypes.Elephant;
+                ChangeStatus(AnimalTypes.Elephant);
             }
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
                 if (hasUnicorn() )//&& GameManager.GetInstance().IsUnicornAvailable)
                 {
                     GameManager.GetInstance().PlayerNotifyUI();
-                    status = AnimalTypes.Unicorn;
+                    ChangeStatus(AnimalTypes.Unicorn);
                 }
                    
             }
-            if (Input.anyKeyDown)
-            {
-                ChangeStatus();
-            } 
         }
 
     }
 
-    void ChangeStatus()
+    void ChangeStatus(AnimalTypes type, bool force = false)
     {
+        if (!force && status == type)
+        {
+            return;
+        }
+        status = type;
         foreach (GameObject animal in animals)
         {
             if (animal)
@@ -100,16 +101,22 @@ public class Player : MonoBehaviour
 
 	public void death(AnimationType type)
     {
-
-		AnimalAnimation animalAnimation = animals [(int)status].GetComponent<AnimalAnimation> ();
+        AnimalAnimation animalAnimation = animals [(int)status].GetComponent<AnimalAnimation> ();
 		if (animalAnimation)
 		{
 			animalAnimation.PickAnimation (type);	
 		}
 	}
-	public void save(AnimationType type)
+	public void save()
     {
-
+        if (this.status == AnimalTypes.Bunny)
+        {
+            AnimalAnimation animalAnimation = animals[(int)status].GetComponent<AnimalAnimation>();
+            if (animalAnimation)
+            {
+                animalAnimation.PickAnimation(AnimationType.Special);
+            } 
+        }
     }
     public void respawn()
     {

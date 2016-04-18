@@ -30,12 +30,16 @@ public class GameManager : MonoBehaviour
     private bool hasWaitingDelay;
 
 
+    public void SetQuality(float level)
+    {
+        QualitySettings.SetQualityLevel((int)level, true);
+    }
+
+
 
     public ICanvasComunication ICanvas;
 
     public Highscore highscore;
-    [SerializeField]
-    private float maxSpeed = 10;
 
     public BlockGenerator generator;
     public Player player;
@@ -47,10 +51,8 @@ public class GameManager : MonoBehaviour
         highscore = new Highscore();
 
         // resets current score
-        highscore.InitCurrentScore(); //ver com eles
-
-        generator.Speed = 3;
-        StartCoroutine(IncreaseSpeed());
+        highscore.InitCurrentScore();
+        
         generator.Play();
         IsUnicornAvailable = false;
         hasWaitingDelay = false;
@@ -63,21 +65,11 @@ public class GameManager : MonoBehaviour
         generator.generateRandom = false;
     }
 
-    private IEnumerator IncreaseSpeed()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(5);
-            if (generator.Speed < maxSpeed)
-            {
-                generator.Speed += 0.1f; 
-            }
-        }
-    }
-
     //succes and player continues
     public void Save()
     {
+        player.save();
+
         //update highscore
         highscore.AddPoints(500);
         
@@ -91,6 +83,7 @@ public class GameManager : MonoBehaviour
         {
             ICanvas.UpdateScore(highscore.GetCurrentScore());
         }
+        
     }
 
     //end and player die

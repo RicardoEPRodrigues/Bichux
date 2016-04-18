@@ -23,7 +23,7 @@ public class TutorialCanvas : MonoBehaviour, ICanvasComunication
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         float deltaY;
         foreach (GameObject button in Buttons)
@@ -84,7 +84,7 @@ public class TutorialCanvas : MonoBehaviour, ICanvasComunication
                 text.GetComponent<Outline>().effectColor = color;
             }
 
-            yield return new WaitForSeconds(.05f); 
+            yield return new WaitForSeconds(.005f); 
         }
 
         gameManager.ChangeUICanvas(2);
