@@ -97,11 +97,16 @@ public class GameManager : MonoBehaviour
 	public void Die(AnimationType deathAnimation)
     {
 		player.death (deathAnimation);
-        // pauses game until restart
-        generator.Pause();
-        generator.generateRandom = false;
-        ChangeUICanvas(3);
+		if (deathAnimation == AnimationType.Crash)
+			OnDie ();
+		// pauses game until restart
     }
+
+	public void OnDie(){
+		generator.Pause();
+		generator.generateRandom = false;
+		ChangeUICanvas(3);
+	}
 
     public void Play()
     {
