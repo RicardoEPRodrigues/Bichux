@@ -5,13 +5,11 @@ public class Player : MonoBehaviour
 {
 
     public AnimalTypes status;
-    public MusicEffects musicEffects;
 
     public List<GameObject> animals = null;
     public List<Achievment> achievments = new List<Achievment>() { new UnicornAchievment() };
 
     private bool locked;
-    private AnimalTypes oldStatus;
 
     public bool Locked
     {
@@ -29,53 +27,45 @@ public class Player : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        this.ChangeStatus();
+        this.ChangeStatus(status, true);
     }
 
     void PressedKey()
     {
         if (!locked)
         {
-            oldStatus = status;
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                status = AnimalTypes.Worm;
-                musicEffects.changeClip();
-                
+                ChangeStatus(AnimalTypes.Worm);
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                status = AnimalTypes.Bunny;
-                musicEffects.changeClip();
-
+                ChangeStatus(AnimalTypes.Bunny);
             }
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                status = AnimalTypes.Elephant;
-                musicEffects.changeClip();
-
+                ChangeStatus(AnimalTypes.Elephant);
             }
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
                 if (hasUnicorn() )//&& GameManager.GetInstance().IsUnicornAvailable)
                 {
                     GameManager.GetInstance().PlayerNotifyUI();
-                    status = AnimalTypes.Unicorn;
-                    musicEffects.changeClip();
-
+                    ChangeStatus(AnimalTypes.Unicorn);
                 }
                    
             }
-            if (Input.anyKeyDown)
-            {
-                ChangeStatus();
-            } 
         }
 
     }
 
-    void ChangeStatus()
+    void ChangeStatus(AnimalTypes type, bool force = false)
     {
+        if (!force && status == type)
+        {
+            return;
+        }
+        status = type;
         foreach (GameObject animal in animals)
         {
             if (animal)
@@ -111,16 +101,22 @@ public class Player : MonoBehaviour
 
 	public void death(AnimationType type)
     {
-
-		AnimalAnimation animalAnimation = animals [(int)status].GetComponent<AnimalAnimation> ();
+        AnimalAnimation animalAnimation = animals [(int)status].GetComponent<AnimalAnimation> ();
 		if (animalAnimation)
 		{
 			animalAnimation.PickAnimation (type);	
 		}
 	}
-	public void save(AnimationType type)
+	public void save()
     {
-
+        if (this.status == AnimalTypes.Bunny)
+        {
+            AnimalAnimation animalAnimation = animals[(int)status].GetComponent<AnimalAnimation>();
+            if (animalAnimation)
+            {
+                animalAnimation.PickAnimation(AnimationType.Special);
+            } 
+        }
     }
     public void respawn()
     {

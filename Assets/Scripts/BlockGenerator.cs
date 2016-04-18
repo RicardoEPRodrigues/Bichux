@@ -11,7 +11,13 @@ public class BlockGenerator : MonoBehaviour
 
     private GameObject previousBlock;
     [SerializeField]
-    private float speed = 0.1f;
+    private float baseSpeed = 5f;
+    [SerializeField]
+    private float speed = 5f;
+    [SerializeField]
+    private float maxSpeed = 10f;
+    [SerializeField]
+    private float speedMultiplier = 0.1f;
 
     public Transform spawnLocation;
     public Transform movementTarget;
@@ -46,6 +52,20 @@ public class BlockGenerator : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        this.speed = this.baseSpeed;
+        StartCoroutine(IncreaseSpeed());
+    }
+
+    private IEnumerator IncreaseSpeed()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(5);
+            if (this.Speed < maxSpeed && this.generateRandom)
+            {
+                this.Speed += this.speed * this.speedMultiplier;
+            }
+        }
     }
 
     public void Play()
