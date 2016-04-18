@@ -5,6 +5,7 @@ public class Player : MonoBehaviour
 {
 
     public AnimalTypes status;
+    public MusicEffects musicEffects;
 
     public List<GameObject> animals = null;
     public List<Achievment> achievments = new List<Achievment>() { new UnicornAchievment() };
@@ -76,18 +77,22 @@ public class Player : MonoBehaviour
         if (status == AnimalTypes.Worm && animals[0])
         {
             animals[0].SetActive(true);
+            musicEffects.changeClip();
         }
         else if (status == AnimalTypes.Bunny && animals[1])
         {
             animals[1].SetActive(true);
+            musicEffects.changeClip();
         }
         else if (status == AnimalTypes.Elephant && animals[2])
         {
             animals[2].SetActive(true);
+            musicEffects.changeClip();
         }
         else if (status == AnimalTypes.Unicorn && animals[3])
         {
             animals[3].SetActive(true);
+            musicEffects.changeClip();
         }
     }
     // Update is called once per frame
