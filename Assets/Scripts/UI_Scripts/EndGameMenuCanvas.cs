@@ -16,7 +16,7 @@ public class EndGameMenuCanvas : MonoBehaviour, ICanvasComunication
 
     private GameManager gameManager { get; set; }
     private bool NewBest { get; set; }
-    private bool NewUnlock { get; set; }
+    public static bool NewUnlock;
 
 
     public Text UI_MyScore;
@@ -28,8 +28,9 @@ public class EndGameMenuCanvas : MonoBehaviour, ICanvasComunication
     private Color color;
 
     // Use this for initialization
-    void Start()
+    void OnEnable()
     {
+        
         NewBest = false;
         NewUnlock = false;
         CheckForAchievments();
@@ -39,11 +40,13 @@ public class EndGameMenuCanvas : MonoBehaviour, ICanvasComunication
           
         }
     }
+
 	// Update is called once per frame
 	void Update () {
-
+        
         if (NewBest)
         {
+
             Color c = UI_Star.color;
             c.a += 0.7F * Time.deltaTime;
             UI_Star.color = c;
@@ -62,21 +65,36 @@ public class EndGameMenuCanvas : MonoBehaviour, ICanvasComunication
 
     public void RestartGame()
     {
+        gameManager.highscore.InitCurrentScore();
+        NewBest = false;
+        NewUnlock = false;
+        Color c = UI_Star.color;
+        c.a = 0.0f;
+        UI_Star.color = c;
+        UnicornPowerUp.SetActive(false);
         gameManager.ChangeUICanvas(2);
         gameManager.Play();
     }
 
     public void OpenStartMenu()
     {
+        gameManager.highscore.InitCurrentScore();
+        NewBest = false;
+        NewUnlock = false;
+        Color c = UI_Star.color;
+        c.a = 0.0f;
+        UI_Star.color = c;
+        UnicornPowerUp.SetActive(false);
         gameManager.ChangeUICanvas(0);
     }
 
     private void CheckForAchievments()
     {
+        gameManager = GameManager.GetInstance();
         gameManager.player.achievments[0].CheckAchievment();
         if (gameManager.player.achievments[0].HasAchievment()) //player has unicorn
         {
-           // como só há um achievment. Usar um ciclo for break para o caso contrário
+            // como só há um achievment. Usar um ciclo for break para o caso contrário
             NewUnlock = true;
         }
     }
@@ -91,8 +109,11 @@ public class EndGameMenuCanvas : MonoBehaviour, ICanvasComunication
     {
         UI_MyScore.text = score.ToString();
 
+
         if (score == gameManager.highscore.GetHighScore())
+        {
             NewBest = true;
+        }
     }
 
     public void UpdateHighScore(int score)

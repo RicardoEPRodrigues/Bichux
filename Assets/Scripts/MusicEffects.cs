@@ -38,7 +38,6 @@ public class MusicEffects : MonoBehaviour {
             audio.clip = wormClip;
             audio.time = timeSeconds;
             audio.Play();
-            Debug.Log("y");
             // elephantClip.Stop();
             //bunnyClip.Stop();
             //wormClip.Play();
