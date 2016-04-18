@@ -18,7 +18,8 @@ public class TutorialCanvas : MonoBehaviour, ICanvasComunication
     // Use this for initialization
     void Start()
     {
-
+        if(gameManager.player.hasUnicorn())
+            showUnicorn();
     }
 
     // Update is called once per frame

@@ -45,6 +45,10 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         highscore = new Highscore();
+
+        // resets current score
+        highscore.InitCurrentScore(); //ver com eles
+
         generator.Speed = 3;
         StartCoroutine(IncreaseSpeed());
         generator.Play();
@@ -75,7 +79,7 @@ public class GameManager : MonoBehaviour
         //update highscore
         highscore.AddPoints(500);
         
-        if(highscore.GetCurrentScore() == 500 && CurrentCanvas == 2 && !IsUnicornAvailable && !hasWaitingDelay)
+        if( player.hasUnicorn() && highscore.GetCurrentScore() == 500 && CurrentCanvas == 2 && !IsUnicornAvailable && !hasWaitingDelay )
         {
             IsUnicornAvailable = true;
             ICanvas.showUnicorn();
@@ -90,8 +94,6 @@ public class GameManager : MonoBehaviour
     //end and player die
     public void Die()
     {
-        // resets current score
-        highscore.InitCurrentScore();
         // pauses game until restart
         generator.Pause();
 
@@ -107,6 +109,7 @@ public class GameManager : MonoBehaviour
         ICanvas.SetGameManager(this);
 
         ICanvas.UpdateScore(highscore.GetCurrentScore());
+
         ICanvas.UpdateHighScore(highscore.GetHighScore());
 
 

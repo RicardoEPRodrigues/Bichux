@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
-                if (GameManager.GetInstance().IsUnicornAvailable)
+                if (hasUnicorn() )//&& GameManager.GetInstance().IsUnicornAvailable)
                 {
                     GameManager.GetInstance().PlayerNotifyUI();
                     status = AnimalTypes.Unicorn;
