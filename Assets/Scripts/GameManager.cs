@@ -46,6 +46,10 @@ public class GameManager : MonoBehaviour
 
     public int CurrentCanvas { get; private set; }
 
+    //FORMULA FIB
+    private float _baseScore = 500.0f;
+    private float _xx = 1;
+
     void Start()
     {
         highscore = new Highscore();
@@ -73,10 +77,17 @@ public class GameManager : MonoBehaviour
         //update highscore
         highscore.AddPoints(500);
         
-        if( player.hasUnicorn() && highscore.GetCurrentScore() == 500 && CurrentCanvas == 2 && !IsUnicornAvailable && !hasWaitingDelay )
+        if( player.hasUnicorn() && highscore.GetCurrentScore() >= _baseScore && CurrentCanvas == 2 && !IsUnicornAvailable && !hasWaitingDelay )
         {
             IsUnicornAvailable = true;
             ICanvas.showUnicorn();
+
+            //update formula
+            _xx += 1.0f;
+            _baseScore =+ (_baseScore*_xx);
+
+            Debug.Log("new base --> " + _baseScore);
+
         }
 
         if (ICanvas != null)
