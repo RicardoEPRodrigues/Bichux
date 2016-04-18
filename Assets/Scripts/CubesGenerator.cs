@@ -5,7 +5,8 @@ using System.Collections.Generic;
 public class CubesGenerator : MonoBehaviour
 {
     //standard prefab
-    [SerializeField] private GameObject defaultCube;
+    [SerializeField]
+    private GameObject defaultCube;
 
     //cubes number
     public int numberCubes;
@@ -35,7 +36,7 @@ public class CubesGenerator : MonoBehaviour
     {
         foreach (Cube cube in cubes)
         {
-            cube.lifeCycle(manager.generator.Speed);
+            cube.lifeCycle(manager.generator.speedChanger.Speed);
         }
     }
 
@@ -52,7 +53,8 @@ public class CubesGenerator : MonoBehaviour
         }
     }
 
-    private void createColours() {
+    private void createColours()
+    {
         Color colour1 = new Color(0.56f, 0.56f, 0.56f, 1.0f);
         Color colour2 = new Color(1.0f, 1.0f, 0.33f, 1.0f);
         Color colour3 = new Color(0.92f, 0.42f, 0.6f, 1.0f);
