@@ -65,7 +65,7 @@ public class ProceduralBlock : SelfAwareBehaviour
 
     public void OnCollisionBoxEnter(Collider col)
     {
-        if (acceptedType != AnimalTypes.None && acceptedType != AnimalTypes.Unicorn && player)
+        if (acceptedType != AnimalTypes.None && player && player.status != AnimalTypes.Unicorn)
         {
             bool isPlayerCollision = false;
             foreach (GameObject animal in player.animals)
@@ -104,7 +104,7 @@ public class ProceduralBlock : SelfAwareBehaviour
 
     private void OnCollisionBoxEnterDeath(Collider colissionInfo)
     {
-        if (acceptedType != AnimalTypes.None && acceptedType != AnimalTypes.Unicorn && player)
+        if (acceptedType != AnimalTypes.None && player && player.status != AnimalTypes.Unicorn)
         {
             bool isPlayerCollision = false;
             foreach (GameObject animal in player.animals)

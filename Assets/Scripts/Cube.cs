@@ -5,15 +5,14 @@ public class Cube : MonoBehaviour {
 
     public GameObject prefab { get; set; }
     public float life { get; set; }
-
-    //private bool fadeInEnable = false;
-    //private bool initFadeIn = false;
+    public Color color { get; set; }
 
     private float alphaColor = 1.0f;
 
-    public Cube(GameObject defaultCube, Vector3 pos) {
+    public Cube(GameObject defaultCube, Vector3 pos, Color cl) {
         this.prefab = Instantiate(defaultCube, pos, Quaternion.identity) as GameObject;
         this.life = Random.Range(5, 7);
+        this.color = cl;
     }
 
     //cycle
@@ -44,7 +43,7 @@ public class Cube : MonoBehaviour {
     //fade
     private void fadeOut() {
         alphaColor -= Random.Range(0.05f, 0.1f);
-        this.prefab.GetComponent<Renderer>().material.color = new Color(1.0f, 1.0f, 1.0f, alphaColor);
+        this.prefab.GetComponent<Renderer>().material.color = new Color(color.r, color.r, color.b, alphaColor);
 
         if (alphaColor < 0)
             resetCube();
@@ -65,7 +64,7 @@ public class Cube : MonoBehaviour {
 
         //reset opacity
         this.alphaColor = 1.0f;
-        this.prefab.GetComponent<Renderer>().material.color = new Color(1.0f, 1.0f, 1.0f, alphaColor);
+        this.prefab.GetComponent<Renderer>().material.color = new Color(color.r, color.r, color.b, alphaColor);
     }
 
     //generate new position

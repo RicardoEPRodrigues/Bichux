@@ -23,9 +23,8 @@ public class MusicEffects : MonoBehaviour {
 
         audio = GetComponent<AudioSource>();
         audio.clip = menuClip;
-        audio.Play();
-        
 
+        this.Restart();
     }
 
 
@@ -76,5 +75,10 @@ public class MusicEffects : MonoBehaviour {
         }
     
 
+    }
+
+    public void Restart()
+    {
+        audio.Play();
     }
 }

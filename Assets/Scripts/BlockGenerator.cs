@@ -8,16 +8,7 @@ public class BlockGenerator : MonoBehaviour
     private List<GameObject> blocks = null;
     [SerializeField]
     private GameObject defaultBlock = null;
-
     private GameObject previousBlock;
-    [SerializeField]
-    private float baseSpeed = 5f;
-    [SerializeField]
-    private float speed = 5f;
-    [SerializeField]
-    private float maxSpeed = 10f;
-    [SerializeField]
-    private float speedMultiplier = 0.1f;
 
     public Transform spawnLocation;
     public Transform movementTarget;
@@ -28,46 +19,13 @@ public class BlockGenerator : MonoBehaviour
     public bool generate = false;
     public bool generateRandom = true;
 
-    public float Speed
-    {
-        get
-        {
-            return speed;
-        }
-
-        set
-        {
-            this.speed = value;
-            //foreach (ProceduralBlock block in GetComponentsInChildren<ProceduralBlock>())
-            //{
-            //    if (block)
-            //    {
-            //        block.speed = value;
-            //    }
-            //}
-        }
-    }
-
+    public SpeedChanger speedChanger;
 
     // Use this for initialization
     void Start()
     {
-        this.speed = this.baseSpeed;
-        StartCoroutine(IncreaseSpeed());
     }
-
-    private IEnumerator IncreaseSpeed()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(5);
-            if (this.Speed < maxSpeed && this.generateRandom)
-            {
-                this.Speed += this.speed * this.speedMultiplier;
-            }
-        }
-    }
-
+    
     public void Play()
     {
         Control(true);
@@ -80,8 +38,7 @@ public class BlockGenerator : MonoBehaviour
 
     public void Restart()
     {
-        this.speed = this.baseSpeed;
-
+        speedChanger.Reset();
         ICollection<ProceduralBlock> blocks = GetComponentsInChildren<ProceduralBlock>();
         foreach (ProceduralBlock block in blocks)
         {
@@ -92,7 +49,6 @@ public class BlockGenerator : MonoBehaviour
                 Destroy(block.gameObject);
             }
         }
-        InstantiateBlock(defaultBlock);
     }
 
     private void Control(bool run)
@@ -105,6 +61,7 @@ public class BlockGenerator : MonoBehaviour
                 block.move = run;
             }
         }
+        speedChanger.IsUpdating = run;
     }
 
     void SpawnRandomObject()
@@ -125,7 +82,7 @@ public class BlockGenerator : MonoBehaviour
         ProceduralBlock block = blockObj.GetComponent<ProceduralBlock>();
         block.movementTarget = movementTarget;
         block.player = player;
-        block.speed = this.speed;
+        block.speed = this.speedChanger.Speed;
     }
 
     void Update()
@@ -135,10 +92,12 @@ public class BlockGenerator : MonoBehaviour
             if (!generateRandom)
             {
                 InstantiateBlock(defaultBlock);
+                this.speedChanger.IsUpdating = false;
             }
             else
             {
                 SpawnRandomObject();
+                this.speedChanger.IsUpdating = true;
             }
         }
     }
