@@ -19,6 +19,7 @@ public class ProceduralBlock : SelfAwareBehaviour
     public float distThreshold = 1.0f;
     private float startTime;
     private float journeyLength;
+	public AnimationType deathAnimation = AnimationType.Fall;
 
 
 	//public int colliderAction;
@@ -80,7 +81,7 @@ public class ProceduralBlock : SelfAwareBehaviour
                 else
                 {
                     // The player is going to die.
-                    GameManager.GetInstance().Die();
+					GameManager.GetInstance().Die(deathAnimation);
                 }
 
                 this.colliderW.GetComponent<BoxCollider>().enabled = false;

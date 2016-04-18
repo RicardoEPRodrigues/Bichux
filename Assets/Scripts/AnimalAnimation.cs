@@ -8,27 +8,30 @@ public class AnimalAnimation : MonoBehaviour {
 	void Start()
 	{
 		animator = GetComponent <Animator>();
-
 	}
 
-	public void PickAnimation(int colAction)
+	public void PickAnimation(AnimationType colAction)
 	{
 
 		switch (colAction)
 		{
 
-		case 1: //normalmovement
+		case AnimationType.Run: //normalmovement
 			animator.SetTrigger("Run");
 			break;
 
 
-		case 2: //transposeobstacle
-			animator.SetTrigger("TransposeObstacle");
+		case AnimationType.Special: //transposeobstacle
+			animator.SetTrigger("Special");
 			break;
 
 
-		case 3: //die
-			animator.SetTrigger("Die");
+		case AnimationType.Crash: //crash
+			animator.SetTrigger("Crash");
+			break;
+
+		case AnimationType.Fall: //fall
+			animator.SetTrigger("Fall");
 			break;
 
 		default:
