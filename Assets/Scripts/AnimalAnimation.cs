@@ -48,6 +48,5 @@ public class AnimalAnimation : MonoBehaviour {
 
 	public void OnDie(){
 		GameManager.GetInstance().OnDie();
-        player.Locked = false;
 	}
 }
