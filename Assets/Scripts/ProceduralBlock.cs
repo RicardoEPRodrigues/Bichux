@@ -72,6 +72,8 @@ public class ProceduralBlock : SelfAwareBehaviour
                     // The player is going to die.
                     GameManager.GetInstance().Die();
                 }
+
+                this.colliderW.GetComponent<BoxCollider>().enabled = false;
             }
         }
     }

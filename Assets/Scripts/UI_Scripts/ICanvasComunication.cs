@@ -8,6 +8,8 @@ public interface ICanvasComunication {
 
     void UpdateScore(int score);
     void UpdateHighScore(int score);
+
+    void showUnicorn();
     
 
 

@@ -7,36 +7,63 @@ public class Player : MonoBehaviour
     public AnimalTypes status;
 
     public List<GameObject> animals = null;
+    public List<Achievment> achievments = new List<Achievment>() { new UnicornAchievment() };
+
+    private bool locked;
+
+    public bool Locked
+    {
+        get
+        {
+            return locked;
+        }
+
+        set
+        {
+            this.locked = value;
+        }
+    }
 
     // Use this for initialization
     void Start()
     {
-        this.changeStatus();
+        this.ChangeStatus();
     }
 
-    void pressedKey()
+    void PressedKey()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (!locked)
         {
-            status = AnimalTypes.Worm;
-        }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            status = AnimalTypes.Bunny;
-        }
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            status = AnimalTypes.Elephant;
-        }
-
-        if (Input.anyKeyDown)
-        {
-            changeStatus();
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                status = AnimalTypes.Worm;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                status = AnimalTypes.Bunny;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                status = AnimalTypes.Elephant;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                if (GameManager.GetInstance().IsUnicornAvailable)
+                {
+                    GameManager.GetInstance().PlayerNotifyUI();
+                    status = AnimalTypes.Elephant;
+                }
+                   
+            }
+            if (Input.anyKeyDown)
+            {
+                ChangeStatus();
+            } 
         }
 
     }
 
-    void changeStatus()
+    void ChangeStatus()
     {
         foreach (GameObject animal in animals)
         {
@@ -57,13 +84,17 @@ public class Player : MonoBehaviour
         {
             animals[2].SetActive(true);
         }
+        else if (status == AnimalTypes.Unicorn && animals[3])
+        {
+            animals[3].SetActive(true);
+        }
     }
     // Update is called once per frame
     private void Update()
     {
         // Get the axis and jump input.
 
-        pressedKey();
+        PressedKey();
 
     }
 
@@ -78,5 +109,17 @@ public class Player : MonoBehaviour
     public void respawn()
     {
 
+    }
+
+    public bool hasUnicorn()
+    {
+        foreach (Achievment achievment in achievments)
+        {
+            if (achievment is UnicornAchievment && achievment.HasAchievment())
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

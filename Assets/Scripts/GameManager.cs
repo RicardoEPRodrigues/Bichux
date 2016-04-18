@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     //unique instance
     private static GameManager _instance;
 
+
     public static GameManager GetInstance()
     {
         return _instance;
@@ -24,17 +25,22 @@ public class GameManager : MonoBehaviour
     }
 
     public GameObject[] UI_CanvasPrefab;
-    private int CurrentCanvas;
+    private int CurrentCanvhhas;
+    public bool IsUnicornAvailable { get; set; }
+    private bool hasWaitingDelay;
 
 
-    private ICanvasComunication ICanvas;
 
-    private Highscore highscore;
+    public ICanvasComunication ICanvas;
+
+    public Highscore highscore;
     [SerializeField]
     private float maxSpeed = 10;
 
     public BlockGenerator generator;
     public Player player;
+
+    public int CurrentCanvas { get; private set; }
 
     void Start()
     {
@@ -42,8 +48,13 @@ public class GameManager : MonoBehaviour
         generator.Speed = 3;
         StartCoroutine(IncreaseSpeed());
         generator.Play();
+        IsUnicornAvailable = false;
+        hasWaitingDelay = false;
 
         ChangeUICanvas(0);
+
+        if (ICanvas != null)
+            ICanvas.SetGameManager(this);
     }
 
     private IEnumerator IncreaseSpeed()
@@ -61,18 +72,19 @@ public class GameManager : MonoBehaviour
     //succes and player continues
     public void Save()
     {
-
-        if (ICanvas != null)
-            ICanvas.SetGameManager(this);
-
-
         //update highscore
         highscore.AddPoints(500);
+        
+        if(highscore.GetCurrentScore() == 500 && CurrentCanvas == 2 && !IsUnicornAvailable && !hasWaitingDelay)
+        {
+            IsUnicornAvailable = true;
+            ICanvas.showUnicorn();
+        }
 
         if (ICanvas != null)
-            ICanvas.UpdateScore(highscore.GetHighScore());
-        //TODO update ui
-
+        {
+            ICanvas.UpdateScore(highscore.GetCurrentScore());
+        }
     }
 
     //end and player die
@@ -82,6 +94,8 @@ public class GameManager : MonoBehaviour
         highscore.InitCurrentScore();
         // pauses game until restart
         generator.Pause();
+
+        ChangeUICanvas(3);
     }
 
     public void ChangeUICanvas(int id)
@@ -92,6 +106,37 @@ public class GameManager : MonoBehaviour
         ICanvas = (ICanvasComunication) UI_CanvasPrefab[id].GetComponent(typeof(ICanvasComunication));
         ICanvas.SetGameManager(this);
 
+        ICanvas.UpdateScore(highscore.GetCurrentScore());
+        ICanvas.UpdateHighScore(highscore.GetHighScore());
+
+
+        if (CurrentCanvas == 1 && player.hasUnicorn()){
+            IsUnicornAvailable = true;
+            ICanvas.showUnicorn();
+        }
+        IsUnicornAvailable = false;
+    }
+
+    public void PlayerNotifyUI()
+    {
+        
+        if (CurrentCanvas == 2)
+        {
+            
+            IsUnicornAvailable = false;
+            ICanvas.showUnicorn();
+            StartCoroutine(RemoveUnicorn(10));
+        }
+    }
+
+    private IEnumerator RemoveUnicorn(float time)
+    {
+        hasWaitingDelay = true;
+        
+        yield return new WaitForSeconds(time);
+        hasWaitingDelay = false;
+
+        // Code to execute after the delay
     }
 
     public void test()

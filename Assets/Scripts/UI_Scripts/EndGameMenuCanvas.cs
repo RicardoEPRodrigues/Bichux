@@ -57,4 +57,10 @@ public class EndGameMenuCanvas : MonoBehaviour, ICanvasComunication
         UI_HighScore.text = score.ToString();
     }
 
+    public void showUnicorn() {
+        //usar isto para oa chievment
+    }
+
+
+
 }

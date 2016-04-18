@@ -6,10 +6,12 @@ public class BlockGenerator : MonoBehaviour
 {
     [SerializeField]
     private List<GameObject> blocks = null;
+    [SerializeField]
+    private GameObject defaultBlock = null;
 
     private GameObject previousBlock;
     [SerializeField]
-    private float speed= 0.1f;
+    private float speed = 0.1f;
 
     public Transform spawnLocation;
     public Transform movementTarget;
@@ -18,6 +20,7 @@ public class BlockGenerator : MonoBehaviour
     public float distanceThreshold = 10.0f;
 
     public bool generate = false;
+    public bool generateRandom = true;
 
     public float Speed
     {
@@ -72,8 +75,12 @@ public class BlockGenerator : MonoBehaviour
         //spawns item in array position between 0 and 100
         int whichItem = Random.Range(0, blocks.Count);
 
+        InstantiateBlock(blocks[whichItem]);
+    }
 
-        GameObject blockObj = Instantiate(blocks[whichItem]) as GameObject;
+    private void InstantiateBlock(GameObject blockObject)
+    {
+        GameObject blockObj = Instantiate(blockObject) as GameObject;
         blockObj.transform.SetParent(gameObject.transform);
         previousBlock = blockObj;
 
@@ -88,7 +95,14 @@ public class BlockGenerator : MonoBehaviour
     {
         if (generate && (!previousBlock || !Utilities.WithinDistance(spawnLocation.position, previousBlock.transform.position, distanceThreshold)))
         {
-            SpawnRandomObject();
+            if (!generateRandom)
+            {
+                InstantiateBlock(defaultBlock);
+            }
+            else
+            {
+                SpawnRandomObject();
+            }
         }
     }
 }
