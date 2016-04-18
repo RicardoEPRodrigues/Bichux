@@ -63,6 +63,7 @@ public class EndGameMenuCanvas : MonoBehaviour, ICanvasComunication
     public void RestartGame()
     {
         gameManager.ChangeUICanvas(2);
+        gameManager.Play();
     }
 
     public void OpenStartMenu()

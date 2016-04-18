@@ -103,8 +103,11 @@ public class GameManager : MonoBehaviour
 
     public void Play()
     {
-
+        highscore.InitCurrentScore();
+        generator.Restart();
+        generator.generate = true;
         generator.generateRandom = true;
+        player.respawn();
     }
 
 
@@ -151,10 +154,5 @@ public class GameManager : MonoBehaviour
         hasWaitingDelay = false;
 
         // Code to execute after the delay
-    }
-
-    public void test()
-    {
-        Debug.Log("ho");
     }
 }

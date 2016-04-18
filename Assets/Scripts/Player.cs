@@ -48,12 +48,12 @@ public class Player : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
-                if (hasUnicorn() )//&& GameManager.GetInstance().IsUnicornAvailable)
+                if (hasUnicorn())//&& GameManager.GetInstance().IsUnicornAvailable)
                 {
                     GameManager.GetInstance().PlayerNotifyUI();
                     ChangeStatus(AnimalTypes.Unicorn);
                 }
-                   
+
             }
         }
 
@@ -99,15 +99,15 @@ public class Player : MonoBehaviour
 
     }
 
-	public void death(AnimationType type)
+    public void death(AnimationType type)
     {
-        AnimalAnimation animalAnimation = animals [(int)status].GetComponent<AnimalAnimation> ();
-		if (animalAnimation)
-		{
-			animalAnimation.PickAnimation (type);	
-		}
-	}
-	public void save()
+        AnimalAnimation animalAnimation = animals[(int)status].GetComponent<AnimalAnimation>();
+        if (animalAnimation)
+        {
+            animalAnimation.PickAnimation(type);
+        }
+    }
+    public void save()
     {
         if (this.status == AnimalTypes.Bunny)
         {
@@ -115,12 +115,17 @@ public class Player : MonoBehaviour
             if (animalAnimation)
             {
                 animalAnimation.PickAnimation(AnimationType.Special);
-            } 
+            }
         }
     }
     public void respawn()
     {
-
+        locked = false;
+        AnimalAnimation animalAnimation = animals[(int)status].GetComponent<AnimalAnimation>();
+        if (animalAnimation)
+        {
+            animalAnimation.PickAnimation(AnimationType.Run);
+        }
     }
 
     public bool hasUnicorn()

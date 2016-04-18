@@ -78,6 +78,23 @@ public class BlockGenerator : MonoBehaviour
         Control(false);
     }
 
+    public void Restart()
+    {
+        this.speed = this.baseSpeed;
+
+        ICollection<ProceduralBlock> blocks = GetComponentsInChildren<ProceduralBlock>();
+        foreach (ProceduralBlock block in blocks)
+        {
+            if (block)
+            {
+                InstantiateBlock(defaultBlock);
+                previousBlock.transform.position = block.transform.position;
+                Destroy(block.gameObject);
+            }
+        }
+        InstantiateBlock(defaultBlock);
+    }
+
     private void Control(bool run)
     {
         generate = run;
