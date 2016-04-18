@@ -16,14 +16,40 @@ public class TutorialCanvas : MonoBehaviour, ICanvasComunication
 
     private Vector3 pos;
     // Use this for initialization
-    void Start()
+    void OnEnable()
     {
-        if(gameManager.player.hasUnicorn())
+        if (gameManager.player.hasUnicorn())
             showUnicorn();
+
+        Color color = Buttons[0].GetComponent<Image>().color;
+        foreach (GameObject button in Buttons)
+        {
+
+            color = button.GetComponent<Image>().color;
+            color.a = 1.0f;
+            button.GetComponent<Image>().color = color;
+
+            color = button.GetComponent<Outline>().effectColor;
+            color.a = 1.0f;
+            button.GetComponent<Outline>().effectColor = color;
+        }
+
+        foreach (GameObject text in Texts)
+        {
+            color = text.GetComponent<Text>().color;
+            color.a = 1.0f;
+            text.GetComponent<Text>().color = color;
+
+            color = text.GetComponent<Outline>().effectColor;
+            color.a = 1.0f;
+            text.GetComponent<Outline>().effectColor = color;
+        }
+
+        
     }
 
-    // Update is called once per frame
-    void Update()
+        // Update is called once per frame
+        void Update()
     {
         float deltaY;
         foreach (GameObject button in Buttons)

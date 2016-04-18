@@ -120,7 +120,6 @@ public class GameManager : MonoBehaviour
         ICanvas.SetGameManager(this);
 
         ICanvas.UpdateScore(highscore.GetCurrentScore());
-
         ICanvas.UpdateHighScore(highscore.GetHighScore());
 
 
