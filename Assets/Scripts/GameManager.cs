@@ -30,6 +30,12 @@ public class GameManager : MonoBehaviour
     private bool hasWaitingDelay;
 
 
+    public void SetQuality(float level)
+    {
+        QualitySettings.SetQualityLevel((int)level, true);
+    }
+
+
 
     public ICanvasComunication ICanvas;
 
