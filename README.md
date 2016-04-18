@@ -1,5 +1,5 @@
 # Bichux
-Shapeshifting endless runner small game
+Shapeshifting endless runner where you must transform to the correct animal to be able to continue your run!
 
 ## Installation
 
