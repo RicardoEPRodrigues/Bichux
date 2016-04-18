@@ -29,7 +29,7 @@ public class CubesGenerator : MonoBehaviour
 
 	void Update () {
         foreach (Cube cube in cubes) {
-            cube.lifeCycle(manager.generator.Speed);
+            cube.lifeCycle(manager.generator.speedChanger.Speed);
         }
     }
 

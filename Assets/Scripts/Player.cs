@@ -126,11 +126,16 @@ public class Player : MonoBehaviour
     public void respawn()
     {
         locked = false;
+        SpeedChanger speedChanger = this.GetComponent<SpeedChanger>();
+        speedChanger.Reset();
+        speedChanger.IsUpdating = true;
+        
         AnimalAnimation animalAnimation = animals[(int)status].GetComponent<AnimalAnimation>();
         if (animalAnimation)
         {
             animalAnimation.PickAnimation(AnimationType.Run);
         }
+        musicEffects.Restart();
     }
 
     public bool hasUnicorn()

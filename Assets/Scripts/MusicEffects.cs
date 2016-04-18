@@ -23,9 +23,8 @@ public class MusicEffects : MonoBehaviour {
 
         audio = GetComponent<AudioSource>();
         audio.clip = menuClip;
-        audio.Play();
-        
 
+        this.Restart();
     }
 
 
@@ -38,7 +37,6 @@ public class MusicEffects : MonoBehaviour {
             audio.clip = wormClip;
             audio.time = timeSeconds;
             audio.Play();
-            Debug.Log("y");
             // elephantClip.Stop();
             //bunnyClip.Stop();
             //wormClip.Play();
@@ -77,5 +75,10 @@ public class MusicEffects : MonoBehaviour {
         }
     
 
+    }
+
+    public void Restart()
+    {
+        audio.Play();
     }
 }

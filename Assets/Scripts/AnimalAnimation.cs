@@ -5,18 +5,20 @@ public class AnimalAnimation : MonoBehaviour
 {
 
     public Player player;
-	public Animator animator;
-	public ParticleSystem deathParticles;
-	public GameObject partObj;
-	private int particleInt;
+    public Animator animator;
+    public ParticleSystem deathParticles;
+    public GameObject partObj;
+    private int particleInt;
+    public SpeedChanger speedChanger;
 
-	void Start()
-	{
-		deathParticles = partObj.GetComponent<ParticleSystem> ();
-	}
+    void Start()
+    {
+        deathParticles = partObj.GetComponent<ParticleSystem>();
+    }
 
     public void PickAnimation(AnimationType colAction)
     {
+        animator.speed = speedChanger.Speed;
         switch (colAction)
         {
 
@@ -53,28 +55,30 @@ public class AnimalAnimation : MonoBehaviour
         animator.SetTrigger("Run");
         player.Locked = false;
     }
-    
-	public void OnDie(){
-		GameManager.GetInstance().OnDie();
-		deathParticles.Emit (particleInt);
+
+    public void OnDie()
+    {
+        GameManager.GetInstance().OnDie();
+        deathParticles.Emit(particleInt);
 
 
-		switch (GameManager.GetInstance().player.status) {
+        switch (GameManager.GetInstance().player.status)
+        {
 
-		case AnimalTypes.Worm:
-			particleInt = 5;
-			break;
+            case AnimalTypes.Worm:
+                particleInt = 5;
+                break;
 
-		case AnimalTypes.Bunny:
-			particleInt = 15;
-			break;
+            case AnimalTypes.Bunny:
+                particleInt = 15;
+                break;
 
-		case AnimalTypes.Elephant:
-			particleInt = 30;
-			break;
+            case AnimalTypes.Elephant:
+                particleInt = 30;
+                break;
 
-		default:
-			break;
-		}
-	}
+            default:
+                break;
+        }
+    }
 }
