@@ -20,7 +20,12 @@ public class ProceduralBlock : SelfAwareBehaviour
     private float startTime;
     private float journeyLength;
 
-    // Use this for initialization
+
+	//public int colliderAction;
+	//private AnimalAnimation animalAnimation;
+
+
+
     void Start()
     {
         startPosition = self.position;
@@ -32,7 +37,6 @@ public class ProceduralBlock : SelfAwareBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (movementTarget && move)
@@ -57,7 +61,13 @@ public class ProceduralBlock : SelfAwareBehaviour
             foreach (GameObject animal in player.animals) {
                 if (col.gameObject == animal)
                 {
-                    isPlayerCollision = true;
+					isPlayerCollision = true;
+
+				/*
+				animalAnimation = col.gameObject.GetComponent<AnimalAnimation>();
+				animalAnimation.PickAnimation(colliderAction);
+				*/
+
                 }
             }
             if (isPlayerCollision)

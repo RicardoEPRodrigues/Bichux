@@ -8,6 +8,7 @@ public class ColliderWrapper : MonoBehaviour
     public CollisionEvent onCollisionStay;
     public CollisionEvent onCollisionExit;
 
+
     public void OnTriggerEnter(Collider col)
     {
         if (onCollisionEnter != null)
