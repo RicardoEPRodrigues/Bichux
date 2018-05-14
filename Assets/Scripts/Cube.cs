@@ -1,52 +1,56 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Cube : MonoBehaviour {
+public class Cube {
 
-    public GameObject prefab { get; set; }
-    public float life { get; set; }
-    public Color color { get; set; }
+    public GameObject GameObject { get; set; }
+    public float Life { get; set; }
+    public Color Color { get; set; }
 
-    private float alphaColor = 1.0f;
+    private float _alphaColor = 1.0f;
 
-    public Cube(GameObject defaultCube, Vector3 pos, Color cl) {
-        this.prefab = Instantiate(defaultCube, pos, Quaternion.identity) as GameObject;
-        this.life = Random.Range(5, 7);
-        this.color = cl;
+    public Cube(GameObject cubePrefab, Vector3 pos, Color cl, Transform parent = null) {
+        this.GameObject = Object.Instantiate(cubePrefab, pos, Quaternion.identity);
+        if (GameObject && parent)
+        {
+            GameObject.transform.SetParent(parent);
+        }
+        this.Life = Random.Range(5, 7);
+        this.Color = cl;
     }
 
     //cycle
-    public void lifeCycle(float speed) {
+    public void LifeCycle(float speed) {
 
         //1- move cube
-        move(speed);
+        Move(speed);
 
         //2- check if is dead
-        if (isDead()) 
-            fadeOut();
+        if (IsDead()) 
+            FadeOut();
     }
 
     //1- move the cube
-    private void move(float speed) {
-            this.life -= 10f * Time.deltaTime;
-        this.prefab.transform.position -= new Vector3(speed *2* Time.deltaTime, 0, 0);
+    private void Move(float speed) {
+            this.Life -= 10f * Time.deltaTime;
+        this.GameObject.transform.position -= new Vector3(speed *2* Time.deltaTime, 0, 0);
     }
 
-    private bool isDead() {
+    private bool IsDead() {
         //se morri ou sai fora ecra
-        if (this.life < 0 || this.prefab.transform.position.x<=-20) {
+        if (this.Life < 0 || this.GameObject.transform.position.x<=-20) {
             return true;
         }
         return false;
     }
 
     //fade
-    private void fadeOut() {
-        alphaColor -= Random.Range(0.05f, 0.1f);
-        this.prefab.GetComponent<Renderer>().material.color = new Color(color.r, color.r, color.b, alphaColor);
+    private void FadeOut() {
+        _alphaColor -= Random.Range(0.05f, 0.1f);
+        this.GameObject.GetComponent<Renderer>().material.color = new Color(Color.r, Color.r, Color.b, _alphaColor);
 
-        if (alphaColor < 0)
-            resetCube();
+        if (_alphaColor < 0)
+            ResetCube();
     }
 
     /*
@@ -55,20 +59,20 @@ public class Cube : MonoBehaviour {
     new position
     new opacity
     */
-    private void resetCube() {
+    private void ResetCube() {
         //reset life
-        this.life = Random.Range(5, 7);
+        this.Life = Random.Range(5, 7);
 
         //new position
-        newPosition();
+        NewPosition();
 
         //reset opacity
-        this.alphaColor = 1.0f;
-        this.prefab.GetComponent<Renderer>().material.color = new Color(color.r, color.r, color.b, alphaColor);
+        this._alphaColor = 1.0f;
+        this.GameObject.GetComponent<Renderer>().material.color = new Color(Color.r, Color.r, Color.b, _alphaColor);
     }
 
     //generate new position
-    private void newPosition() {
+    private void NewPosition() {
         float x, y, z;
 
         x = Random.Range(-45, 72);
@@ -76,9 +80,9 @@ public class Cube : MonoBehaviour {
         z = Random.Range(20, 40);
 
         //reset position
-        this.prefab.transform.position = new Vector3(x, y, z);
+        this.GameObject.transform.position = new Vector3(x, y, z);
 
         //for the fadeIn
-        this.alphaColor = 0.5f;
+        this._alphaColor = 0.5f;
     }
 } 

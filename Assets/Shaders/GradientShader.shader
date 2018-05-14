@@ -1,4 +1,6 @@
-﻿Shader "Unlit/GradientShader"
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Unlit/GradientShader"
 {
 	Properties
 	{
@@ -55,7 +57,7 @@
 				v2f vert(appdata v)
 				{
 					v2f o;
-					o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
+					o.vertex = UnityObjectToClipPos(v.vertex);
 					o.uv = v.uv;//TRANSFORM_TEX(v.uv, _MainTex);
 					o.normal = mul(UNITY_MATRIX_MV, v.normal);
 					UNITY_TRANSFER_FOG(o,o.vertex);

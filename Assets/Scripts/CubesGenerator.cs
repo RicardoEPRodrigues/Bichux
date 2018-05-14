@@ -5,62 +5,55 @@ using System.Collections.Generic;
 public class CubesGenerator : MonoBehaviour
 {
     //standard prefab
-    [SerializeField]
-    private GameObject defaultCube;
+    [SerializeField] private GameObject _cubePrefab;
 
     //cubes number
-    public int numberCubes;
+    public int NumberCubes;
 
     //refernece to manager
-    private GameManager manager;
+    private GameManager _manager;
 
     //cubes container
-    private List<Cube> cubes = null;
-    private List<Color> colours = null;
+    private List<Cube> _cubes = null;
+    [SerializeField] private List<Color> _colours = null;
 
     void Start()
     {
-        //init moving cubes
-        cubes = new List<Cube>();
-        colours = new List<Color>();
+        if (_colours == null || _colours.Count == 0)
+        {
+            _colours = new List<Color>();
+            _colours.Add(new Color(0.56f, 0.56f, 0.56f, 1.0f));
+            _colours.Add(new Color(1.0f, 1.0f, 0.33f, 1.0f));
+            _colours.Add(new Color(0.92f, 0.42f, 0.6f, 1.0f));
+        }
 
-        createColours();
-        createCubes();
+        _cubes = new List<Cube>();
+        CreateCubes();
 
         //reference to manager
-        manager = GameManager.GetInstance();
+        _manager = GameManager.GetInstance();
     }
 
 
     void Update()
     {
-        foreach (Cube cube in cubes)
+        foreach (Cube cube in _cubes)
         {
-            cube.lifeCycle(manager.generator.speedChanger.Speed);
+            cube.LifeCycle(_manager.generator.speedChanger.Speed);
         }
     }
 
-    private void createCubes()
+    private void CreateCubes()
     {
         float x, y, z;
-        for (int i = 0; i < numberCubes; i++)
+        for (int i = 0; i < NumberCubes; i++)
         {
             x = Random.Range(-45, 72);
             y = Random.Range(-20, 47);
             z = Random.Range(20, 40);
 
-            cubes.Add(new Cube(defaultCube, new Vector3(x, y, z), colours[Random.Range(0, colours.Count)]));
+            _cubes.Add(new Cube(_cubePrefab, new Vector3(x, y, z), _colours[Random.Range(0, _colours.Count)],
+                gameObject.transform));
         }
-    }
-
-    private void createColours()
-    {
-        Color colour1 = new Color(0.56f, 0.56f, 0.56f, 1.0f);
-        Color colour2 = new Color(1.0f, 1.0f, 0.33f, 1.0f);
-        Color colour3 = new Color(0.92f, 0.42f, 0.6f, 1.0f);
-
-        colours.Add(colour1);
-        colours.Add(colour2);
-        colours.Add(colour3);
     }
 }
