@@ -15,7 +15,7 @@ public class MusicEffects : MonoBehaviour {
     public AudioClip elephantClip;
     public AudioClip unicornClip;
     public AudioClip menuClip;
-    AudioSource audio;
+    new AudioSource audio;
 
     private float timeSeconds;
     void Start() {

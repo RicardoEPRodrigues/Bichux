@@ -35,6 +35,11 @@ public class GameManager : MonoBehaviour
         QualitySettings.SetQualityLevel((int)level, true);
     }
 
+    public void SetSoundVolume(float level)
+    {
+        AudioListener.volume = level;
+    }
+
 
 
     public ICanvasComunication ICanvas;

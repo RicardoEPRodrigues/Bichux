@@ -19,10 +19,6 @@ public class StartMenuCanvas : MonoBehaviour, ICanvasComunication
     private bool hoveringButton;
     private int id;
 
-
-    // Use this for initialization
-    void Start () {
-	}
     void FixedUpdate()
     {
         if (hoveringButton)
@@ -39,7 +35,7 @@ public class StartMenuCanvas : MonoBehaviour, ICanvasComunication
 
     }
 
-   public  void OnMouseEnter(int id)
+   public void OnMouseEnter(int id)
     {
         hoveringButton = true;
         this.id = id;
@@ -58,9 +54,6 @@ public class StartMenuCanvas : MonoBehaviour, ICanvasComunication
     public void OpenTutorial() {
         this.gameManager.ChangeUICanvas(1);
     }
-
-    public void OpenOptions() { }
-    public void OpenCredits() { }
 
 
 
