@@ -9,7 +9,9 @@ Inside there is are the binaries of the game.
 
 Just click to run the game and play!
 
-NOTE: It seems the Mac version is somehow broken, sorry for the inconvenience.
+NOTE: After unzipping the downloadable macOS binary, because of GateKeeper, to be able to start the extracted app (e.g. ~/Downloads/Bichux.app) you might have to do the following
+- find "~/Downloads/Bichux.app" -exec xattr -d com.apple.quarantine {} \;
+- chmod +x ~/Downloads/Bichux.app/Contents/MacOS/Bichux
 
 ## Compiling
 
